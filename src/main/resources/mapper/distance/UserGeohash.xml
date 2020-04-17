@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.distance.mapper.UserMapper">
+
+    <resultMap id="UserResult" type="com.example.demo.distance.dataObject.UserGeohash">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="geo_code" property="geoCode"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="selectUserGeohash" resultMap="UserResult" parameterType="java.lang.Double">
+        SELECT * FROM nearby_user_geohash
+        WHERE 1=1
+        AND (longitude BETWEEN ${minlng} AND ${maxlng})
+        AND (latitude BETWEEN ${minlat} AND ${maxlat})
+    </select>
+
+    <insert id="insertUserGeohash" parameterType="com.example.demo.distance.dataObject.UserGeohash">
+        insert into nearby_user (
+        <if test="id != null and id != '' ">id, </if>
+        <if test="name != null and name != '' ">name, </if>
+        <if test="longitude != null and longitude != '' ">longitude, </if>
+        <if test="latitude != null and latitude != '' ">latitude, </if>
+        <if test="geoCode != null and geoCode != '' ">geo_code, </if>
+        create_time
+        )values(
+        <if test="id != null and id != ''">#{id}, </if>
+        <if test="name != null and name != ''">#{name}, </if>
+        <if test="longitude != null and longitude != ''">#{longitude}, </if>
+        <if test="latitude != null and latitude != ''">#{latitude}, </if>
+        <if test="geoCode != null and geoCode != ''">#{geoCode}, </if>
+        sysdate()
+        )
+    </insert>
+</mapper>

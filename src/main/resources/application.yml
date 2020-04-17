@@ -1,0 +1,27 @@
+server:
+  port: 8085
+spring:
+  redis:
+    host: 192.168.1.125
+    port: 6379
+    database: 0
+    password: 123456
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+  datasource:
+    url: jdbc:mysql://192.168.1.125:3306/xwbing?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=UTC&serverTimezone=GMT%2b8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: Li00734$Chao
+logging:
+  config: classpath:logback.xml
+
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+
+
+
